@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %} Message {% endblock %}
+
+
+{% block content %}
+{% load crispy_forms_tags %}
+{% load static %}
+<section class="vh-100" style="background-color: #9A616D;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-xl-10">
+          <div class="card" style="border-radius: 1rem;">
+            <div class="row g-0">
+              <div class="col-md-6 col-lg-5 d-none d-md-block">
+                <img src="{% static 'assets/img/header.jpg' %}"
+                  alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+              </div>
+              <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                <div class="card-body p-4 p-lg-5 text-black">
+                  {% for message in messages %}
+
+                      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                      <strong>{{ message }}</strong>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                  {% endfor %}
+  
+                  <form method="post" action="">
+                    {% csrf_token %}
+
+                    
+                    <h5 class="fw-normal text-dark" style="letter-spacing: 1px;">Send me a message...</h5>
+                    <span>No one will have access to it</span>
+  
+                    {{ form|crispy }}
+  
+                    <div class="pt-1 m-2">
+                      <button class="btn btn-outline-success btn-lg btn-block" type="subnit">Send</button>
+                    </div>
+                  </form>
+                  <span>Or send an email <a href="{% url 'contact' %}">link here</a></span>
+  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
